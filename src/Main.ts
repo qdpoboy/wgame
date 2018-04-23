@@ -100,13 +100,50 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createGameScene(): void {
-        let sky = this.createBitmapByName("bg_jpg");
+        let sky = this.createBitmapByName("bg2_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;
         let stageH = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
 
+        let topMaskHeight = 100;
+
+        let topMask = new egret.Shape();
+        topMask.graphics.beginFill(0x000000, 0.5);
+        topMask.graphics.drawRect(0, 0, stageW, topMaskHeight);
+        topMask.graphics.endFill();
+        this.addChild(topMask);
+
+        let line1 = new egret.Shape();
+        line1.graphics.lineStyle(2, 0xcccccc);
+        line1.graphics.moveTo(0, (stageH - topMaskHeight) / 2);
+        line1.graphics.lineTo(stageW, (stageH - topMaskHeight) / 2);
+        line1.graphics.endFill();
+        this.addChild(line1);
+
+        console.log(stageW / 2);
+        let line2 = new egret.Shape();
+        line2.graphics.lineStyle(2, 0xcccccc);
+        line2.graphics.moveTo(0, 0);
+        line2.graphics.lineTo(0, (stageH - topMaskHeight) / 2);
+        line2.graphics.endFill();
+        line2.x = stageW / 2;
+        line2.y = topMaskHeight;
+        this.addChild(line2);
+
+        let textfield = new egret.TextField();
+        this.addChild(textfield);
+        textfield.alpha = 0;
+        textfield.width = stageW - 172;
+        textfield.textAlign = egret.HorizontalAlign.CENTER;
+        textfield.size = 24;
+        textfield.textColor = 0xffffff;
+        textfield.x = 172;
+        textfield.y = 135;
+        this.textfield = textfield;
+
+        /**
         let topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
         topMask.graphics.drawRect(0, 0, stageW, 172);
@@ -156,6 +193,7 @@ class Main extends eui.UILayer {
         button.verticalCenter = 0;
         this.addChild(button);
         button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        */
     }
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
