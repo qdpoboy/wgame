@@ -178,30 +178,31 @@ var Main = (function (_super) {
         topMask.graphics.drawRect(0, 0, stageW, topMaskHeight);
         topMask.graphics.endFill();
         this.addChild(topMask);
+        //中间横线
         var line1 = new egret.Shape();
         line1.graphics.lineStyle(2, 0xcccccc);
-        line1.graphics.moveTo(0, (stageH - topMaskHeight) / 2);
-        line1.graphics.lineTo(stageW, (stageH - topMaskHeight) / 2);
+        line1.graphics.moveTo(0, (stageH - topMaskHeight) / 2 + topMaskHeight);
+        line1.graphics.lineTo(stageW, (stageH - topMaskHeight) / 2 + topMaskHeight);
         line1.graphics.endFill();
         this.addChild(line1);
-        console.log(stageW / 2);
+        //中间竖线
         var line2 = new egret.Shape();
         line2.graphics.lineStyle(2, 0xcccccc);
         line2.graphics.moveTo(0, 0);
-        line2.graphics.lineTo(0, (stageH - topMaskHeight) / 2);
+        line2.graphics.lineTo(0, (stageH - topMaskHeight) / 2 - 1);
         line2.graphics.endFill();
         line2.x = stageW / 2;
-        line2.y = topMaskHeight;
+        line2.y = topMaskHeight + 1;
         this.addChild(line2);
         var textfield = new egret.TextField();
         this.addChild(textfield);
         textfield.alpha = 0;
-        textfield.width = stageW - 172;
+        textfield.width = stageW;
         textfield.textAlign = egret.HorizontalAlign.CENTER;
         textfield.size = 24;
-        textfield.textColor = 0xffffff;
-        textfield.x = 172;
-        textfield.y = 135;
+        textfield.textColor = 0x000000;
+        textfield.x = 0;
+        textfield.y = 50;
         this.textfield = textfield;
         /**
         let topMask = new egret.Shape();
@@ -306,3 +307,4 @@ var Main = (function (_super) {
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");
+//# sourceMappingURL=Main.js.map
