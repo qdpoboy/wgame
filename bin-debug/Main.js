@@ -204,6 +204,65 @@ var Main = (function (_super) {
         textfield.x = 0;
         textfield.y = 50;
         this.textfield = textfield;
+        //用户名
+        var username = new egret.TextField();
+        username.textColor = 0x000000;
+        username.width = stageW / 2;
+        username.textAlign = "left";
+        username.text = "疯狂的肉夹馍";
+        username.size = 30;
+        username.x = 60;
+        username.y = topMaskHeight + 50;
+        this.addChild(username);
+        //血量
+        var hp = new egret.TextField();
+        hp.textColor = 0x000000;
+        hp.width = stageW / 4;
+        hp.textAlign = "left";
+        hp.text = "HP : 100";
+        hp.size = 24;
+        hp.x = 30;
+        hp.y = topMaskHeight + 120;
+        this.addChild(hp);
+        //法力
+        var mp = new egret.TextField();
+        mp.textColor = 0x000000;
+        mp.width = stageW / 4;
+        mp.textAlign = "right";
+        mp.text = "MP : 100";
+        mp.size = 24;
+        mp.x = 130;
+        mp.y = topMaskHeight + 120;
+        this.addChild(mp);
+        //攻击
+        var attack = new egret.TextField();
+        attack.textColor = 0x000000;
+        attack.width = stageW / 4;
+        attack.textAlign = "left";
+        attack.text = "攻击力 : 100";
+        attack.size = 24;
+        attack.x = 30;
+        attack.y = topMaskHeight + 120 + 50;
+        this.addChild(attack);
+        //战斗信息
+        var figthInfo = new egret.TextField();
+        figthInfo.textColor = 0x000000;
+        figthInfo.width = stageW;
+        figthInfo.textAlign = "left";
+        figthInfo.text = "你对 火狐狸 发动了攻击，造成100点伤害。";
+        figthInfo.size = 22;
+        figthInfo.x = 30;
+        figthInfo.y = (stageH - topMaskHeight) / 2 + topMaskHeight + 30;
+        this.addChild(figthInfo);
+        var figthInfo1 = new egret.TextField();
+        figthInfo1.textColor = 0x000000;
+        figthInfo1.width = stageW;
+        figthInfo1.textAlign = "left";
+        figthInfo1.text = "火狐狸 对你发动了攻击，造成10点伤害。";
+        figthInfo1.size = 22;
+        figthInfo1.x = 30;
+        figthInfo1.y = (stageH - topMaskHeight) / 2 + topMaskHeight + 60;
+        this.addChild(figthInfo1);
         /**
         let topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
