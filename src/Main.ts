@@ -208,6 +208,34 @@ class Main extends eui.UILayer {
         figthInfo1.y = (stageH - topMaskHeight) / 2 + topMaskHeight + 60;
         this.addChild(figthInfo1);
 
+        let label : eui.Label = new eui.Label();
+        label.text = "eui Label test";
+        label.x = 0;
+        label.y = 500;
+        label.width = 400;//设置宽度
+        label.height = 300;//设置高度
+        label.fontFamily = "Tahoma";//设置字体
+        label.textColor = 0xFF0000;//设置颜色
+        label.size = 35;//设置文本字号
+        label.bold = true;//设置是否加粗
+        label.italic = true;//设置是否斜体
+        label.textAlign = "right";//设置水平对齐方式
+        label.verticalAlign = "middle";//设置垂直对齐方式
+        this.addChild(label);
+
+        let group = new eui.Group();
+        let img = new eui.Image("bg_jpg");
+        group.addChild(img);
+        //创建一个Scroller
+        let myScroller = new eui.Scroller();
+        //注意位置和尺寸的设置是在Scroller上面，而不是容器上面
+        myScroller.width = 200;
+        myScroller.height = 200;
+        //设置viewport
+        myScroller.viewport = group;
+        this.addChild(myScroller);
+
+
         /**
         let topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
