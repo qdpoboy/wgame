@@ -100,6 +100,7 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createGameScene(): void {
+        /*
         let sky = this.createBitmapByName("bg2_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;
@@ -234,6 +235,8 @@ class Main extends eui.UILayer {
         //设置viewport
         myScroller.viewport = group;
         this.addChild(myScroller);
+        */
+        this.addChild(new HomeScene());
 
 
         /**

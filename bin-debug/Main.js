@@ -166,27 +166,32 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
-        var sky = this.createBitmapByName("bg2_jpg");
+        /*
+        let sky = this.createBitmapByName("bg2_jpg");
         this.addChild(sky);
-        var stageW = this.stage.stageWidth;
-        var stageH = this.stage.stageHeight;
+        let stageW = this.stage.stageWidth;
+        let stageH = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
-        var topMaskHeight = 100;
-        var topMask = new egret.Shape();
+
+        let topMaskHeight = 100;
+
+        let topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
         topMask.graphics.drawRect(0, 0, stageW, topMaskHeight);
         topMask.graphics.endFill();
         this.addChild(topMask);
+
         //中间横线
-        var line1 = new egret.Shape();
+        let line1 = new egret.Shape();
         line1.graphics.lineStyle(2, 0xcccccc);
-        line1.graphics.moveTo(0, (stageH - topMaskHeight) / 2 + topMaskHeight);
+        line1.graphics.moveTo(0, (stageH - topMaskHeight) / 2 + topMaskHeight );
         line1.graphics.lineTo(stageW, (stageH - topMaskHeight) / 2 + topMaskHeight);
         line1.graphics.endFill();
         this.addChild(line1);
+
         //中间竖线
-        var line2 = new egret.Shape();
+        let line2 = new egret.Shape();
         line2.graphics.lineStyle(2, 0xcccccc);
         line2.graphics.moveTo(0, 0);
         line2.graphics.lineTo(0, (stageH - topMaskHeight) / 2 - 1);
@@ -194,7 +199,8 @@ var Main = (function (_super) {
         line2.x = stageW / 2;
         line2.y = topMaskHeight + 1;
         this.addChild(line2);
-        var textfield = new egret.TextField();
+
+        let textfield = new egret.TextField();
         this.addChild(textfield);
         textfield.alpha = 0;
         textfield.width = stageW;
@@ -204,8 +210,9 @@ var Main = (function (_super) {
         textfield.x = 0;
         textfield.y = 50;
         this.textfield = textfield;
+
         //用户名
-        var username = new egret.TextField();
+        let username = new egret.TextField();
         username.textColor = 0x000000;
         username.width = stageW / 2;
         username.textAlign = "left";
@@ -214,8 +221,9 @@ var Main = (function (_super) {
         username.x = 60;
         username.y = topMaskHeight + 50;
         this.addChild(username);
+
         //血量
-        var hp = new egret.TextField();
+        let hp = new egret.TextField();
         hp.textColor = 0x000000;
         hp.width = stageW / 4;
         hp.textAlign = "left";
@@ -224,8 +232,9 @@ var Main = (function (_super) {
         hp.x = 30;
         hp.y = topMaskHeight + 120;
         this.addChild(hp);
+
         //法力
-        var mp = new egret.TextField();
+        let mp = new egret.TextField();
         mp.textColor = 0x000000;
         mp.width = stageW / 4;
         mp.textAlign = "right";
@@ -234,8 +243,9 @@ var Main = (function (_super) {
         mp.x = 130;
         mp.y = topMaskHeight + 120;
         this.addChild(mp);
+
         //攻击
-        var attack = new egret.TextField();
+        let attack = new egret.TextField();
         attack.textColor = 0x000000;
         attack.width = stageW / 4;
         attack.textAlign = "left";
@@ -244,8 +254,9 @@ var Main = (function (_super) {
         attack.x = 30;
         attack.y = topMaskHeight + 120 + 50;
         this.addChild(attack);
+
         //战斗信息
-        var figthInfo = new egret.TextField();
+        let figthInfo = new egret.TextField();
         figthInfo.textColor = 0x000000;
         figthInfo.width = stageW;
         figthInfo.textAlign = "left";
@@ -254,7 +265,7 @@ var Main = (function (_super) {
         figthInfo.x = 30;
         figthInfo.y = (stageH - topMaskHeight) / 2 + topMaskHeight + 30;
         this.addChild(figthInfo);
-        var figthInfo1 = new egret.TextField();
+        let figthInfo1 = new egret.TextField();
         figthInfo1.textColor = 0x000000;
         figthInfo1.width = stageW;
         figthInfo1.textAlign = "left";
@@ -263,31 +274,35 @@ var Main = (function (_super) {
         figthInfo1.x = 30;
         figthInfo1.y = (stageH - topMaskHeight) / 2 + topMaskHeight + 60;
         this.addChild(figthInfo1);
-        var label = new eui.Label();
+
+        let label : eui.Label = new eui.Label();
         label.text = "eui Label test";
         label.x = 0;
         label.y = 500;
-        label.width = 400; //设置宽度
-        label.height = 300; //设置高度
-        label.fontFamily = "Tahoma"; //设置字体
-        label.textColor = 0xFF0000; //设置颜色
-        label.size = 35; //设置文本字号
-        label.bold = true; //设置是否加粗
-        label.italic = true; //设置是否斜体
-        label.textAlign = "right"; //设置水平对齐方式
-        label.verticalAlign = "middle"; //设置垂直对齐方式
+        label.width = 400;//设置宽度
+        label.height = 300;//设置高度
+        label.fontFamily = "Tahoma";//设置字体
+        label.textColor = 0xFF0000;//设置颜色
+        label.size = 35;//设置文本字号
+        label.bold = true;//设置是否加粗
+        label.italic = true;//设置是否斜体
+        label.textAlign = "right";//设置水平对齐方式
+        label.verticalAlign = "middle";//设置垂直对齐方式
         this.addChild(label);
-        var group = new eui.Group();
-        var img = new eui.Image("bg_jpg");
+
+        let group = new eui.Group();
+        let img = new eui.Image("bg_jpg");
         group.addChild(img);
         //创建一个Scroller
-        var myScroller = new eui.Scroller();
+        let myScroller = new eui.Scroller();
         //注意位置和尺寸的设置是在Scroller上面，而不是容器上面
         myScroller.width = 200;
         myScroller.height = 200;
         //设置viewport
         myScroller.viewport = group;
         this.addChild(myScroller);
+        */
+        this.addChild(new HomeScene());
         /**
         let topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);

@@ -8,27 +8,48 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 主页场景
+ * @author chenkai
+ * @since 2017/4/20
+ *
+ * 实现可自行滚动的聊天文本框
+ */
 var HomeScene = (function (_super) {
     __extends(HomeScene, _super);
     function HomeScene() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.skinName = "src/HomeSceneSkin.exml";
+        var button = new eui.Button();
+        button.label = "Click!";
+        button.horizontalCenter = 0;
+        button.verticalCenter = 0;
+        _this.addChild(button);
+        button.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.onOkTouch, _this);
+        return _this;
+        // this.okBtn.label = 'xxxx萨达';
     }
     HomeScene.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this);
-        //创建一个容器，里面包含一张图片
-        var group = new eui.Group();
-        var img = new eui.Image("resource/bg.jpg");
-        group.addChild(img);
-        //创建一个Scroller
-        var myScroller = new eui.Scroller();
-        //注意位置和尺寸的设置是在Scroller上面，而不是容器上面
-        myScroller.width = 200;
-        myScroller.height = 200;
-        //设置viewport
-        myScroller.viewport = group;
-        this.addChild(myScroller);
+        //this.okBtn.touchEnabled = true;
+        //this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
+    };
+    HomeScene.prototype.onOkTouch = function () {
+        //显示聊天记录
+        console.log(this.chatLabel.text);
+        if (this.chatLabel.text != "") {
+            this.chatLabel.text += "\n" + this.inputLabel.text;
+        }
+        else {
+            this.chatLabel.text += this.inputLabel.text;
+        }
+        //文本高度大于滚动容器高度时，将视口置于文本最后一行
+        if (this.chatLabel.height > this.chatScroller.height) {
+            this.chatScroller.viewport.scrollV = this.chatLabel.height - this.chatScroller.height;
+        }
+        //清空输入文本
+        this.inputLabel.text = "";
     };
     return HomeScene;
-}(eui.Group));
+}(eui.Component));
 __reflect(HomeScene.prototype, "HomeScene");
 //# sourceMappingURL=HomeScene.js.map
