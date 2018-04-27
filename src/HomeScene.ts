@@ -10,6 +10,7 @@ class HomeScene extends eui.Component {
     private inputLabel: eui.EditableText;  //输入文本
     private okBtn: eui.Button;              //确定
     private chatScroller: eui.Scroller;    //聊天记录滚动容器
+    private sock: egret.WebSocket;
     public constructor() {
         super();
         this.skinName = "src/HomeSceneSkin.exml";
@@ -20,13 +21,29 @@ class HomeScene extends eui.Component {
         button.verticalCenter = 0;
         this.addChild(button);
         button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
-        
+
+        this.sock = new egret.WebSocket();
+        this.sock.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceive, this);
+        this.sock.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
+        //this.sock.connect("echo.websocket.org", 80);
+        this.sock.connect("23.105.213.196", 9502);
         // this.okBtn.label = 'xxxx萨达';
     }
 
     public createChildren() {
         //this.okBtn.touchEnabled = true;
         //this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
+    }
+
+    private onSocketOpen():void {
+        console.log('socker已连接');
+        let pdata = '你好';
+        this.sock.writeUTF(pdata);
+    }
+
+    private onReceive():void {
+        let rdata = this.sock.readUTF();
+        console.log('接收到消息:' + rdata);
     }
 
     private onOkTouch() {

@@ -26,12 +26,26 @@ var HomeScene = (function (_super) {
         button.verticalCenter = 0;
         _this.addChild(button);
         button.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.onOkTouch, _this);
+        _this.sock = new egret.WebSocket();
+        _this.sock.addEventListener(egret.ProgressEvent.SOCKET_DATA, _this.onReceive, _this);
+        _this.sock.addEventListener(egret.Event.CONNECT, _this.onSocketOpen, _this);
+        //this.sock.connect("echo.websocket.org", 80);
+        _this.sock.connect("23.105.213.196", 9502);
         return _this;
         // this.okBtn.label = 'xxxx萨达';
     }
     HomeScene.prototype.createChildren = function () {
         //this.okBtn.touchEnabled = true;
         //this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
+    };
+    HomeScene.prototype.onSocketOpen = function () {
+        console.log('socker已连接');
+        var pdata = '你好';
+        this.sock.writeUTF(pdata);
+    };
+    HomeScene.prototype.onReceive = function () {
+        var rdata = this.sock.readUTF();
+        console.log('接收到消息:' + rdata);
     };
     HomeScene.prototype.onOkTouch = function () {
         //显示聊天记录
