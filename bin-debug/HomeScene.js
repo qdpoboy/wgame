@@ -20,48 +20,46 @@ var HomeScene = (function (_super) {
     function HomeScene() {
         var _this = _super.call(this) || this;
         _this.skinName = "src/HomeSceneSkin.exml";
-        var button = new eui.Button();
-        button.label = "Click!";
-        button.horizontalCenter = 0;
-        button.verticalCenter = 0;
-        _this.addChild(button);
-        button.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.onOkTouch, _this);
         _this.sock = new egret.WebSocket();
         _this.sock.addEventListener(egret.ProgressEvent.SOCKET_DATA, _this.onReceive, _this);
         _this.sock.addEventListener(egret.Event.CONNECT, _this.onSocketOpen, _this);
         //this.sock.connect("echo.websocket.org", 80);
         _this.sock.connect("23.105.213.196", 9502);
         return _this;
-        // this.okBtn.label = 'xxxx萨达';
     }
     HomeScene.prototype.createChildren = function () {
         //this.okBtn.touchEnabled = true;
         //this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
     };
     HomeScene.prototype.onSocketOpen = function () {
-        console.log('socker已连接');
+        console.log('socket已连接');
         var pdata = '你好';
-        this.sock.writeUTF(pdata);
+        //this.sock.writeUTF(pdata);
+        var obj = {
+            "c": "run",
+            "m": "fight",
+            "data": { "name": "zhangsan" }
+        };
+        //console.log("send -->", JSON.stringify(obj))
+        this.sock.writeUTF(JSON.stringify(obj));
     };
     HomeScene.prototype.onReceive = function () {
         var rdata = this.sock.readUTF();
-        console.log('接收到消息:' + rdata);
+        //console.log('接收到消息:' + rdata);
+        this.showInfo(rdata);
     };
-    HomeScene.prototype.onOkTouch = function () {
-        //显示聊天记录
-        console.log(this.chatLabel.text);
-        if (this.chatLabel.text != "") {
-            this.chatLabel.text += "\n" + this.inputLabel.text;
+    //输出显示战斗信息
+    HomeScene.prototype.showInfo = function (rdata) {
+        if (rdata != "") {
+            this.chatLabel.text += "\n" + rdata;
         }
         else {
-            this.chatLabel.text += this.inputLabel.text;
+            this.chatLabel.text += rdata;
         }
         //文本高度大于滚动容器高度时，将视口置于文本最后一行
         if (this.chatLabel.height > this.chatScroller.height) {
             this.chatScroller.viewport.scrollV = this.chatLabel.height - this.chatScroller.height;
         }
-        //清空输入文本
-        this.inputLabel.text = "";
     };
     return HomeScene;
 }(eui.Component));

@@ -14,20 +14,11 @@ class HomeScene extends eui.Component {
     public constructor() {
         super();
         this.skinName = "src/HomeSceneSkin.exml";
-
-        let button = new eui.Button();
-        button.label = "Click!";
-        button.horizontalCenter = 0;
-        button.verticalCenter = 0;
-        this.addChild(button);
-        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
-
         this.sock = new egret.WebSocket();
         this.sock.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceive, this);
         this.sock.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
         //this.sock.connect("echo.websocket.org", 80);
         this.sock.connect("23.105.213.196", 9502);
-        // this.okBtn.label = 'xxxx萨达';
     }
 
     public createChildren() {
@@ -36,30 +27,35 @@ class HomeScene extends eui.Component {
     }
 
     private onSocketOpen():void {
-        console.log('socker已连接');
+        console.log('socket已连接');
         let pdata = '你好';
-        this.sock.writeUTF(pdata);
+        //this.sock.writeUTF(pdata);
+        var obj: Object = {
+            "c": "run",
+            "m": "fight",
+            "data": {"name": "zhangsan"}
+        };
+        //console.log("send -->", JSON.stringify(obj))
+        this.sock.writeUTF(JSON.stringify(obj));
     }
 
     private onReceive():void {
         let rdata = this.sock.readUTF();
-        console.log('接收到消息:' + rdata);
+        //console.log('接收到消息:' + rdata);
+        this.showInfo(rdata);
     }
-
-    private onOkTouch() {
-        //显示聊天记录
-        console.log(this.chatLabel.text);
-        if (this.chatLabel.text != "") {
-            this.chatLabel.text += "\n" + this.inputLabel.text;
+    
+    //输出显示战斗信息
+    private showInfo(rdata){
+        if (rdata != "") {
+            this.chatLabel.text += "\n" + rdata;
         } else {
-            this.chatLabel.text += this.inputLabel.text;
+            this.chatLabel.text += rdata;
         }
 
         //文本高度大于滚动容器高度时，将视口置于文本最后一行
         if (this.chatLabel.height > this.chatScroller.height) {
             this.chatScroller.viewport.scrollV = this.chatLabel.height - this.chatScroller.height;
         }
-        //清空输入文本
-        this.inputLabel.text = "";
     }
 }
