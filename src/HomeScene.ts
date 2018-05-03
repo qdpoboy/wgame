@@ -31,8 +31,8 @@ class HomeScene extends eui.Component {
         let pdata = '你好';
         //this.sock.writeUTF(pdata);
         var obj: Object = {
-            "c": "run",
-            "m": "fight",
+            "v": "run",
+            "c": "fight",
             "data": {"name": "zhangsan"}
         };
         //console.log("send -->", JSON.stringify(obj))

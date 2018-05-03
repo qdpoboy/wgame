@@ -36,8 +36,8 @@ var HomeScene = (function (_super) {
         var pdata = '你好';
         //this.sock.writeUTF(pdata);
         var obj = {
-            "c": "run",
-            "m": "fight",
+            "v": "run",
+            "c": "fight",
             "data": { "name": "zhangsan" }
         };
         //console.log("send -->", JSON.stringify(obj))
