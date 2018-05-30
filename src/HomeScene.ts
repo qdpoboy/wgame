@@ -26,27 +26,38 @@ class HomeScene extends eui.Component {
         //this.okBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOkTouch, this);
     }
 
-    private onSocketOpen():void {
+    private onSocketOpen(): void {
         console.log('socket已连接');
         let pdata = '你好';
         //this.sock.writeUTF(pdata);
-        var obj: Object = {
+        let obj: Object = {
             "v": "run",
             "c": "fight",
-            "data": {"name": "zhangsan"}
+            "data": { "name": "zhangsan" }
         };
         //console.log("send -->", JSON.stringify(obj))
         this.sock.writeUTF(JSON.stringify(obj));
     }
 
-    private onReceive():void {
+    private onReceive(): void {
         let rdata = this.sock.readUTF();
+        let rdata_obj = JSON.parse(rdata);
+        if (rdata_obj['type'] == 'text') {
+            this.showInfo(rdata_obj['msg']);
+        } else if (rdata_obj['type'] == 'end') {
+            let obj: Object = {
+                "v": "run",
+                "c": "fight",
+                "data": { "map": rdata_obj.map }
+            };
+            this.sock.writeUTF(JSON.stringify(obj));
+        }
         //console.log('接收到消息:' + rdata);
-        this.showInfo(rdata);
+
     }
-    
+
     //输出显示战斗信息
-    private showInfo(rdata){
+    private showInfo(rdata) {
         if (rdata != "") {
             this.chatLabel.text += "\n" + rdata;
         } else {

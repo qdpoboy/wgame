@@ -45,8 +45,19 @@ var HomeScene = (function (_super) {
     };
     HomeScene.prototype.onReceive = function () {
         var rdata = this.sock.readUTF();
+        var rdata_obj = JSON.parse(rdata);
+        if (rdata_obj['type'] == 'text') {
+            this.showInfo(rdata_obj['msg']);
+        }
+        else if (rdata_obj['type'] == 'end') {
+            var obj = {
+                "v": "run",
+                "c": "fight",
+                "data": { "map": rdata_obj.map }
+            };
+            this.sock.writeUTF(JSON.stringify(obj));
+        }
         //console.log('接收到消息:' + rdata);
-        this.showInfo(rdata);
     };
     //输出显示战斗信息
     HomeScene.prototype.showInfo = function (rdata) {
