@@ -98,4 +98,3 @@ var WgameWebSocket = (function () {
     return WgameWebSocket;
 }());
 __reflect(WgameWebSocket.prototype, "WgameWebSocket");
-//# sourceMappingURL=WgameWebSocket.js.map
